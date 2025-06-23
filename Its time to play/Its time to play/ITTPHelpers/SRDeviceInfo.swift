@@ -1,3 +1,10 @@
+//
+//  SRDeviceInfo.swift
+//  Its time to play
+//
+//
+
+
 import UIKit
 
 class SRDeviceInfo {
