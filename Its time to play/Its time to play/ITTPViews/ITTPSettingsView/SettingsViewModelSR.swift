@@ -1,6 +1,14 @@
+//
+//  SettingsViewModelSR.swift
+//  Its time to play
+//
+//
+
+
 import SwiftUI
 
 class SettingsViewModelSR: ObservableObject {
     @AppStorage("musicEnabled") var musicEnabled: Bool = true
     @AppStorage("soundEnabled") var soundEnabled: Bool = true
+    @AppStorage("vibraEnabled") var vibraEnabled: Bool = true
 }
