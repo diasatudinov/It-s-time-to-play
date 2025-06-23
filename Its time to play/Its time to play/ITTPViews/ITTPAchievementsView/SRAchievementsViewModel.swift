@@ -1,13 +1,19 @@
+//
+//  SRAchievementsViewModel.swift
+//  Its time to play
+//
+//
+
+
 import SwiftUI
 
 class SRAchievementsViewModel: ObservableObject {
     
     @Published var achievements: [SRAchievement] = [
-        SRAchievement(image: "achi1SR", isAchieved: false),
-        SRAchievement(image: "achi2SR", isAchieved: false),
-        SRAchievement(image: "achi3SR", isAchieved: false),
-        SRAchievement(image: "achi4SR", isAchieved: false),
-        SRAchievement(image: "achi5SR", isAchieved: false)
+        SRAchievement(image: "achi1ITTP", name: "Awakening", subtitle: "Start Act I", isAchieved: false),
+        SRAchievement(image: "achi2ITTP", name: "Hunter", subtitle: "Finish Act I", isAchieved: false),
+        SRAchievement(image: "achi3ITTP", name: "Seeker", subtitle: "Start Act II", isAchieved: false),
+        SRAchievement(image: "achi4ITTP", name: "Ascended", subtitle: "Finish Act II", isAchieved: false),
 
     ] {
         didSet {
@@ -20,7 +26,7 @@ class SRAchievementsViewModel: ObservableObject {
         
     }
     
-    private let userDefaultsAchievementsKey = "achievementsKeySR"
+    private let userDefaultsAchievementsKey = "achievementsKeyITTP"
     
     func achieveToggle(_ achive: SRAchievement) {
         guard let index = achievements.firstIndex(where: { $0.id == achive.id })
@@ -52,5 +58,7 @@ class SRAchievementsViewModel: ObservableObject {
 struct SRAchievement: Codable, Hashable, Identifiable {
     var id = UUID()
     var image: String
+    var name: String
+    var subtitle: String
     var isAchieved: Bool
 }
