@@ -2,7 +2,6 @@
 //  ITTPNewGameView.swift
 //  Its time to play
 //
-//  Created by Dias Atudinov on 24.06.2025.
 //
 
 import SwiftUI
@@ -11,7 +10,8 @@ struct ITTPNewGameView: View {
     @Environment(\.presentationMode) var presentationMode
 
     @ObservedObject var viewModel: ITTPNewGameViewModel
-    
+    @State var currentLevel: ITTPLevel = ITTPLevel(name: "", longName: "", act: .act1, itemName: "", bgName: "", isActive: false, isPassed: false)
+    @State var showLevel = false
     var body: some View {
         ZStack {
             if viewModel.isNewGameStarted {
@@ -24,20 +24,98 @@ struct ITTPNewGameView: View {
                                 .scaledToFit()
                             
                             HStack {
-                                ITTPMarkerView(text: viewModel.levels[3].longName, isOpen: false)
+                                ITTPMarkerView(text: viewModel.levels[3].longName, isOpen: viewModel.levels[3].isActive)
                                     .offset(x: SRDeviceInfo.shared.deviceType == .pad ? 70:40)
+                                    .onTapGesture {
+                                        if viewModel.levels[3].isActive, !viewModel.levels[3].isPassed {
+                                            showLevel = true
+                                            DispatchQueue.main.async {
+                                                currentLevel = viewModel.levels[3]
+                                            }
+                                        }
+                                    }
                                 
-                                ITTPMarkerView(text: viewModel.levels[4].longName, isOpen: false)
+                                ITTPMarkerView(text: viewModel.levels[4].longName, isOpen: viewModel.levels[4].isActive)
                                     .offset(x: SRDeviceInfo.shared.deviceType == .pad ? 70:40, y: SRDeviceInfo.shared.deviceType == .pad ? 160:80)
-                                ITTPMarkerView(text: viewModel.levels[0].longName, isOpen: true)
+                                    .onTapGesture {
+                                        if viewModel.levels[4].isActive, !viewModel.levels[4].isPassed {
+                                            showLevel = true
+                                            DispatchQueue.main.async {
+                                                currentLevel = viewModel.levels[4]
+                                            }
+                                        }
+                                    }
+                                
+                                ITTPMarkerView(text: viewModel.levels[0].longName, isOpen: viewModel.levels[0].isActive)
                                     .offset(x: SRDeviceInfo.shared.deviceType == .pad ? 70:40, y: SRDeviceInfo.shared.deviceType == .pad ? -160:-80)
+                                    .onTapGesture {
+                                        if viewModel.levels[0].isActive, !viewModel.levels[0].isPassed {
+                                            showLevel = true
+                                            DispatchQueue.main.async {
+                                                currentLevel = viewModel.levels[0]
+                                            }
+                                        }
+                                    }
+                                
                                 Spacer()
-                                ITTPMarkerView(text: viewModel.levels[1].longName, isOpen: false)
+                                ITTPMarkerView(text: viewModel.levels[1].longName, isOpen: viewModel.levels[1].isActive)
                                     .offset(x: SRDeviceInfo.shared.deviceType == .pad ? 70:40, y: SRDeviceInfo.shared.deviceType == .pad ? 200:120)
-                                ITTPMarkerView(text: viewModel.levels[2].longName, isOpen: false)
+                                    .onTapGesture {
+                                        if viewModel.levels[1].isActive, !viewModel.levels[1].isPassed {
+                                            showLevel = true
+                                            DispatchQueue.main.async {
+                                                currentLevel = viewModel.levels[1]
+                                            }
+                                        }
+                                    }
+                                
+                                ITTPMarkerView(text: viewModel.levels[2].longName, isOpen: viewModel.levels[2].isActive)
                                     .offset(x: SRDeviceInfo.shared.deviceType == .pad ? -70:-40, y: SRDeviceInfo.shared.deviceType == .pad ? -280:-150)
+                                    .onTapGesture {
+                                        if viewModel.levels[2].isActive, !viewModel.levels[2].isPassed {
+                                            showLevel = true
+                                            DispatchQueue.main.async {
+                                                currentLevel = viewModel.levels[2]
+                                            }
+                                        }
+                                    }
+                                
                             }
                         }
+                    }
+                    
+                    VStack {
+                        Spacer()
+                        VStack(spacing: 32) {
+                            if viewModel.isAct1Finished {
+                                Button {
+                                    viewModel.isAct1 = false
+                                } label: {
+                                    Image(.finishAct1ITTP)
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(height: SRDeviceInfo.shared.deviceType == .pad ? 180:100)
+                                }
+                            }
+                        ScrollView(.horizontal) {
+                            HStack {
+                                ForEach(viewModel.levels, id: \.self) { level in
+                                    ZStack {
+                                        Color.black.opacity(0.8)
+                                        
+                                        if level.isPassed {
+                                            Image(viewModel.levelPass(currentLevel: level))
+                                                .resizable()
+                                                .scaledToFit()
+                                                .frame(height: SRDeviceInfo.shared.deviceType == .pad ? 150:80)
+                                        }
+                                        
+                                    }.frame(width: SRDeviceInfo.shared.deviceType == .pad ? 180:100, height: SRDeviceInfo.shared.deviceType == .pad ? 180:100)
+                                        .cornerRadius(24)
+                                }
+                            }.padding(.horizontal, 20)
+                        }
+                    }
                     }
                 } else {
                     
@@ -49,7 +127,6 @@ struct ITTPNewGameView: View {
                 HStack(alignment: .top) {
                     Button {
                         presentationMode.wrappedValue.dismiss()
-                        
                     } label: {
                         Image(.backIconITTP)
                             .resizable()
@@ -115,6 +192,7 @@ struct ITTPNewGameView: View {
                     
                 }
             }
+            
         }.background(
             ZStack {
                 if !viewModel.isNewGameStarted {
@@ -126,6 +204,9 @@ struct ITTPNewGameView: View {
                 
             }
         )
+        .fullScreenCover(isPresented: $showLevel) {
+            ITTPLevelView(viewModel: viewModel, level: currentLevel)
+        }
     }
 }
 
