@@ -14,6 +14,7 @@ struct ITTPMenuView: View {
     
     @StateObject var achievementVM = SRAchievementsViewModel()
     @StateObject var settingsVM = SettingsViewModelSR()
+    @StateObject var gameVM = ITTPNewGameViewModel()
     
     var body: some View {
         
@@ -46,22 +47,63 @@ struct ITTPMenuView: View {
                 
                 Spacer()
                 
-                Button {
-                    showGame = true
-                    
-                } label: {
-                    
-                    ZStack {
-                        Image(.newGameIconITTP)
-                            .resizable()
-                            .scaledToFit()
-                            .frame(height: SRDeviceInfo.shared.deviceType == .pad ? 210:150)
+                VStack(spacing: 0) {
+                    if gameVM.isNewGameStarted {
                         
+                        Button {
+                            showGame = true
+                        } label: {
+                            ZStack {
+                                Image(.btnBgITTP)
+                                    .resizable()
+                                    .scaledToFit()
+                                
+                                VStack {
+                                    Text("Continue")
+                                        .font(.custom(Fonts.regular.rawValue, size: SRDeviceInfo.shared.deviceType == .pad ? 50:36))
+                                        .foregroundStyle(.white)
+                                    
+                                    Text(gameVM.isAct1 ? "Act I":"Act II")
+                                        .font(.custom(Fonts.regular.rawValue, size: SRDeviceInfo.shared.deviceType == .pad ? 50:36))
+                                        .foregroundStyle(.white)
+                                }
+                            }
+                        }
                         
+                        Button {
+                            showGame = true
+                            DispatchQueue.main.async {
+                                newGameStart()
+                            }
+                        } label: {
+                            ZStack {
+                                Image(.newGameIconOffITTP)
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(height: SRDeviceInfo.shared.deviceType == .pad ? 210:150)
+                                
+                            }
+                        }
                         
+                    } else {
+                        Button {
+                            showGame = true
+                            
+                        } label: {
+                            
+                            ZStack {
+                                Image(.newGameIconITTP)
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(height: SRDeviceInfo.shared.deviceType == .pad ? 210:150)
+                                
+                                
+                                
+                            }
+                        }
                     }
+                    
                 }
-                
                 
             }
             
@@ -76,7 +118,7 @@ struct ITTPMenuView: View {
                 }
             )
             .fullScreenCover(isPresented: $showGame) {
-                //            SRGameLevelsView()
+                ITTPNewGameView(viewModel: gameVM)
             }
             .fullScreenCover(isPresented: $showAchievement) {
                 ITTPAchievementsView(viewModel: achievementVM)
@@ -88,6 +130,59 @@ struct ITTPMenuView: View {
         
         
         
+    }
+    
+    private func newGameStart() {
+        gameVM.levels = [
+            ITTPLevel(
+                name: "Field",
+                longName: "Hunting Field",
+                act: .act1,
+                itemName: "FieldItem",
+                bgName: "FieldBg",
+                isActive: true,
+                isPassed: false
+            ),
+            ITTPLevel(
+                name: "River",
+                longName: "Great River",
+                act: .act1,
+                itemName: "RiverItem",
+                bgName: "RiverBg",
+                isActive: false,
+                isPassed: false
+            ),
+            ITTPLevel(
+                name: "Mountain",
+                longName: "Sacred Mountain",
+                act: .act1,
+                itemName: "MountainItem",
+                bgName: "MountainBg",
+                isActive: false,
+                isPassed: false
+            ),
+            ITTPLevel(
+                name: "Camp",
+                longName: "Camp Center",
+                act: .act1,
+                itemName: "CampItem",
+                bgName: "CampBg",
+                isActive: false,
+                isPassed: false
+            ),
+            ITTPLevel(
+                name: "Fire",
+                longName: "Sacred Fire",
+                act: .act1,
+                itemName: "FireItem",
+                bgName: "FireBg",
+                isActive: false, isPassed: false
+            ),
+        ]
+        
+        gameVM.isNewGameStarted = false
+        gameVM.isAct1Finished = false
+        gameVM.isAct1 = true
     }
     
 }
