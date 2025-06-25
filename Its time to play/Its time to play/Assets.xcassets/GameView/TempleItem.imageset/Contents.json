@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "TempleItem.png",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}
