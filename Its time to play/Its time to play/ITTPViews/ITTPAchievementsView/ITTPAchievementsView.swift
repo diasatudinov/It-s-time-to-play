@@ -9,7 +9,7 @@ import SwiftUI
 struct ITTPAchievementsView: View {
     @Environment(\.presentationMode) var presentationMode
 
-    @ObservedObject var viewModel: SRAchievementsViewModel
+    @ObservedObject var viewModel: ITTPAchievementsViewModel
     var body: some View {
         ZStack {
             
@@ -23,24 +23,24 @@ struct ITTPAchievementsView: View {
                         Image(.backIconITTP)
                             .resizable()
                             .scaledToFit()
-                            .frame(height: SRDeviceInfo.shared.deviceType == .pad ? 140:72)
+                            .frame(height: ITTPDeviceInfo.shared.deviceType == .pad ? 140:72)
                     }
                     
                     Spacer()
                     
                     Text("Achievments")
-                        .font(.custom(Fonts.regular.rawValue, size: SRDeviceInfo.shared.deviceType == .pad ? 50:36))
+                        .font(.custom(Fonts.regular.rawValue, size: ITTPDeviceInfo.shared.deviceType == .pad ? 50:36))
                         .foregroundStyle(.white)
                 }.padding([.top, .horizontal])
-                
-                VStack {
-                    ForEach(viewModel.achievements, id: \.self) { achieve in
-                        achievementItem(item: achieve)
-                            .foregroundStyle(.black)
+                ScrollView {
+                    VStack {
+                        ForEach(viewModel.achievements, id: \.self) { achieve in
+                            achievementItem(item: achieve)
+                                .foregroundStyle(.black)
+                        }
                     }
                 }
-                
-                Spacer()
+               
             }
         }.background(
             ZStack {
@@ -52,7 +52,7 @@ struct ITTPAchievementsView: View {
         )
     }
     
-    @ViewBuilder func achievementItem(item: SRAchievement) -> some View {
+    @ViewBuilder func achievementItem(item: ITTPAchievement) -> some View {
         ZStack(alignment: .leading) {
             Image(.achievementsBgITTP)
                 .resizable()
@@ -61,19 +61,19 @@ struct ITTPAchievementsView: View {
                 Image(item.isAchieved ? item.image:"\(item.image)Off")
                     .resizable()
                     .scaledToFit()
-                    .frame(height: SRDeviceInfo.shared.deviceType == .pad ? 200:100)
+                    .frame(height: ITTPDeviceInfo.shared.deviceType == .pad ? 200:100)
                 
                 VStack(alignment: .leading) {
                     Text("\(item.name)")
-                        .font(.custom(Fonts.regular.rawValue, size: SRDeviceInfo.shared.deviceType == .pad ? 50:32))
+                        .font(.custom(Fonts.regular.rawValue, size: ITTPDeviceInfo.shared.deviceType == .pad ? 50:32))
                     Text("\(item.subtitle)")
-                        .font(.custom(Fonts.regular.rawValue, size: SRDeviceInfo.shared.deviceType == .pad ? 30:20))
+                        .font(.custom(Fonts.regular.rawValue, size: ITTPDeviceInfo.shared.deviceType == .pad ? 30:20))
                 }
             
             }.padding(.horizontal, 24)
             
         }
-        .frame(width: SRDeviceInfo.shared.deviceType == .pad ? 700:370,height: SRDeviceInfo.shared.deviceType == .pad ? 380:140)
+        .frame(width: ITTPDeviceInfo.shared.deviceType == .pad ? 700:370,height: ITTPDeviceInfo.shared.deviceType == .pad ? 280:140)
             .onTapGesture {
                 viewModel.achieveToggle(item)
             }
@@ -83,5 +83,5 @@ struct ITTPAchievementsView: View {
 
 
 #Preview {
-    ITTPAchievementsView(viewModel: SRAchievementsViewModel())
+    ITTPAchievementsView(viewModel: ITTPAchievementsViewModel())
 }

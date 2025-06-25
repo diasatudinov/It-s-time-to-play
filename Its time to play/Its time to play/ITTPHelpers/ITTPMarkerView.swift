@@ -15,16 +15,16 @@ struct ITTPMarkerView: View {
                 Image(isOpen ? .markerTopITTP : .markerTopOffITTP)
                     .resizable()
                     .scaledToFit()
-                    .frame(height: SRDeviceInfo.shared.deviceType == .pad ? 130:65)
+                    .frame(height: ITTPDeviceInfo.shared.deviceType == .pad ? 90:65)
                 
                 Text(text)
-                    .font(.custom(Fonts.regular.rawValue, size: SRDeviceInfo.shared.deviceType == .pad ? 60:30))
+                    .font(.custom(Fonts.regular.rawValue, size: ITTPDeviceInfo.shared.deviceType == .pad ? 40:30))
                     .foregroundStyle(.white)
             }
             Image(isOpen ? .markerBottomITTP: .markerBottomOffITTP)
                 .resizable()
                 .scaledToFit()
-                .frame(height: SRDeviceInfo.shared.deviceType == .pad ? 140:71)
+                .frame(height: ITTPDeviceInfo.shared.deviceType == .pad ? 120:71)
         }
     }
 }

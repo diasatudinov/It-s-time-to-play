@@ -30,7 +30,7 @@ struct ITTPLevelView: View {
                         Image("\(viewModel.levelPass(currentLevel: level))")
                             .resizable()
                             .scaledToFit()
-                            .frame(height: SRDeviceInfo.shared.deviceType == .pad ? 200:120)
+                            .frame(height: ITTPDeviceInfo.shared.deviceType == .pad ? 200:120)
                             .opacity(0.3)
                             .offset(x: viewModel.levelItemPosition(currentLevel: level).x, y: viewModel.levelItemPosition(currentLevel: level).y)
                             .onTapGesture {
@@ -53,13 +53,13 @@ struct ITTPLevelView: View {
                         Image(.backIconITTP)
                             .resizable()
                             .scaledToFit()
-                            .frame(height: SRDeviceInfo.shared.deviceType == .pad ? 140:72)
+                            .frame(height: ITTPDeviceInfo.shared.deviceType == .pad ? 140:72)
                     }
                     Spacer()
                     
                     
                     Text("\(level.longName)")
-                        .font(.custom(Fonts.regular.rawValue, size: SRDeviceInfo.shared.deviceType == .pad ? 50:36))
+                        .font(.custom(Fonts.regular.rawValue, size: ITTPDeviceInfo.shared.deviceType == .pad ? 50:36))
                         .foregroundStyle(.white)
                         .multilineTextAlignment(.trailing)
                     
@@ -79,8 +79,8 @@ struct ITTPLevelView: View {
                             VStack(alignment: .leading) {
                                 
                                 Text(viewModel.currentLevelPassInfo(currentLevel: level) ? viewModel.levelFinishText(currentLevel: level): viewModel.levelOnbording(currentLevel: level))
-                                    .font(.custom(Fonts.regular.rawValue, size: SRDeviceInfo.shared.deviceType == .pad ? 35:20))
-                                    .frame(height: SRDeviceInfo.shared.deviceType == .pad ? 175:100)
+                                    .font(.custom(Fonts.regular.rawValue, size: ITTPDeviceInfo.shared.deviceType == .pad ? 35:20))
+                                    .frame(height: ITTPDeviceInfo.shared.deviceType == .pad ? 175:100)
                                     .padding()
                                 
                                 Button {
@@ -95,12 +95,12 @@ struct ITTPLevelView: View {
                                     Image(.startBtnITTP)
                                         .resizable()
                                         .scaledToFit()
-                                        .frame(height: SRDeviceInfo.shared.deviceType == .pad ? 100:48)
+                                        .frame(height: ITTPDeviceInfo.shared.deviceType == .pad ? 100:48)
                                         .padding(.bottom, 20)
                                         .padding(.leading, 15)
                                 }
                             }
-                        }.frame(width: SRDeviceInfo.shared.deviceType == .pad ? 500:300, height: SRDeviceInfo.shared.deviceType == .pad ? 350:200)
+                        }.frame(width: ITTPDeviceInfo.shared.deviceType == .pad ? 500:300, height: ITTPDeviceInfo.shared.deviceType == .pad ? 350:200)
                     }
                 }
                 
@@ -117,7 +117,7 @@ struct ITTPLevelView: View {
                         Image("\(viewModel.levelPass(currentLevel: level))")
                             .resizable()
                             .aspectRatio(contentMode: .fit)
-                            .frame(width: SRDeviceInfo.shared.deviceType == .pad ? 500:320, height: SRDeviceInfo.shared.deviceType == .pad ? 500:320)
+                            .frame(width: ITTPDeviceInfo.shared.deviceType == .pad ? 500:320, height: ITTPDeviceInfo.shared.deviceType == .pad ? 500:320)
                             .scaleEffect(scale)
                             .animation(.easeOut(duration: 0.3), value: scale)
                         
