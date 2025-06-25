@@ -9,7 +9,7 @@ import SwiftUI
 struct ITTPSettingsView: View {
     @Environment(\.presentationMode) var presentationMode
 
-    @ObservedObject var settingsVM: SettingsViewModelSR
+    @ObservedObject var settingsVM: ITTPSettingsViewModel
     var body: some View {
         ZStack {
             
@@ -23,12 +23,12 @@ struct ITTPSettingsView: View {
                         Image(.backIconITTP)
                             .resizable()
                             .scaledToFit()
-                            .frame(height: SRDeviceInfo.shared.deviceType == .pad ? 140:72)
+                            .frame(height: ITTPDeviceInfo.shared.deviceType == .pad ? 140:72)
                     }
                     Spacer()
                   
                     Text("Settings")
-                        .font(.custom(Fonts.regular.rawValue, size: SRDeviceInfo.shared.deviceType == .pad ? 70:36))
+                        .font(.custom(Fonts.regular.rawValue, size: ITTPDeviceInfo.shared.deviceType == .pad ? 70:36))
                         .foregroundStyle(.white)
                 }.padding([.horizontal, .top])
                 
@@ -52,10 +52,10 @@ struct ITTPSettingsView: View {
                                 Image(settingsVM.soundEnabled ? .onITTP:.offITTP)
                                     .resizable()
                                     .scaledToFit()
-                                    .frame(height: SRDeviceInfo.shared.deviceType == .pad ? 80:44)
+                                    .frame(height: ITTPDeviceInfo.shared.deviceType == .pad ? 80:44)
                             }
-                        }.padding(.horizontal, SRDeviceInfo.shared.deviceType == .pad ? 60:32)
-                    }.frame(width: SRDeviceInfo.shared.deviceType == .pad ? 700:370,height: SRDeviceInfo.shared.deviceType == .pad ? 150:79)
+                        }.padding(.horizontal, ITTPDeviceInfo.shared.deviceType == .pad ? 60:32)
+                    }.frame(width: ITTPDeviceInfo.shared.deviceType == .pad ? 700:370,height: ITTPDeviceInfo.shared.deviceType == .pad ? 150:79)
                     
                     ZStack {
                         Image(.musicBgITTP)
@@ -74,10 +74,10 @@ struct ITTPSettingsView: View {
                                 Image(settingsVM.musicEnabled ? .onITTP:.offITTP)
                                     .resizable()
                                     .scaledToFit()
-                                    .frame(height: SRDeviceInfo.shared.deviceType == .pad ? 80:44)
+                                    .frame(height: ITTPDeviceInfo.shared.deviceType == .pad ? 80:44)
                             }
-                        }.padding(.horizontal, SRDeviceInfo.shared.deviceType == .pad ? 60:32)
-                    }.frame(width: SRDeviceInfo.shared.deviceType == .pad ? 700:370,height: SRDeviceInfo.shared.deviceType == .pad ? 150:79)
+                        }.padding(.horizontal, ITTPDeviceInfo.shared.deviceType == .pad ? 60:32)
+                    }.frame(width: ITTPDeviceInfo.shared.deviceType == .pad ? 700:370,height: ITTPDeviceInfo.shared.deviceType == .pad ? 150:79)
                     
                     ZStack {
                         Image(.vibroBgITTP)
@@ -96,10 +96,10 @@ struct ITTPSettingsView: View {
                                 Image(settingsVM.vibraEnabled ? .onITTP:.offITTP)
                                     .resizable()
                                     .scaledToFit()
-                                    .frame(height: SRDeviceInfo.shared.deviceType == .pad ? 80:44)
+                                    .frame(height: ITTPDeviceInfo.shared.deviceType == .pad ? 80:44)
                             }
-                        }.padding(.horizontal, SRDeviceInfo.shared.deviceType == .pad ? 60:32)
-                    }.frame(width: SRDeviceInfo.shared.deviceType == .pad ? 700:370,height: SRDeviceInfo.shared.deviceType == .pad ? 150:79)
+                        }.padding(.horizontal, ITTPDeviceInfo.shared.deviceType == .pad ? 60:32)
+                    }.frame(width: ITTPDeviceInfo.shared.deviceType == .pad ? 700:370,height: ITTPDeviceInfo.shared.deviceType == .pad ? 150:79)
                 }
                 
                 Spacer()
@@ -116,5 +116,5 @@ struct ITTPSettingsView: View {
 }
 
 #Preview {
-    ITTPSettingsView(settingsVM: SettingsViewModelSR())
+    ITTPSettingsView(settingsVM: ITTPSettingsViewModel())
 }

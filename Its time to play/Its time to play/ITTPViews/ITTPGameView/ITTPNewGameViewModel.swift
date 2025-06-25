@@ -58,7 +58,50 @@ class ITTPNewGameViewModel: ObservableObject {
             bgName: "FireBg",
             isActive: false, isPassed: false
         ),
-        
+        ITTPLevel(
+            name: "Cave",
+            longName: "Cave of Dreams",
+            act: .act2,
+            itemName: "CaveItem",
+            bgName: "CaveBg",
+            isActive: true,
+            isPassed: false
+        ),
+        ITTPLevel(
+            name: "Forest",
+            longName: "Forest of Shadows",
+            act: .act2,
+            itemName: "ForestItem",
+            bgName: "ForestBg",
+            isActive: false,
+            isPassed: false
+        ),
+        ITTPLevel(
+            name: "Hill",
+            longName: "Windy Hills",
+            act: .act2,
+            itemName: "HillItem",
+            bgName: "HillBg",
+            isActive: false,
+            isPassed: false
+        ),
+        ITTPLevel(
+            name: "Lake",
+            longName: "Lake of Reflections",
+            act: .act2,
+            itemName: "LakeItem",
+            bgName: "LakeBg",
+            isActive: false,
+            isPassed: false
+        ),
+        ITTPLevel(
+            name: "Temple",
+            longName: "Temple of Ancestors",
+            act: .act2,
+            itemName: "TempleItem",
+            bgName: "TempleBg",
+            isActive: false, isPassed: false
+        ),
         
         
     ] {
@@ -69,6 +112,7 @@ class ITTPNewGameViewModel: ObservableObject {
     
     @AppStorage("newGame") var isNewGameStarted = false
     @AppStorage("isAct1Finished") var isAct1Finished = false
+    @AppStorage("isAct2Finished") var isAct2Finished = false
     @AppStorage("isAct1") var isAct1 = true
     
     init() {
@@ -92,6 +136,16 @@ class ITTPNewGameViewModel: ObservableObject {
                 levels[4].isActive = true
             case "Fire":
                 isAct1Finished = true
+            case "Cave":
+                levels[6].isActive = true
+            case "Forest":
+                levels[7].isActive = true
+            case "Hill":
+                levels[8].isActive = true
+            case "Lake":
+                levels[9].isActive = true
+            case "Temple":
+                isAct2Finished = true
             default:
                 print("error")
             }
@@ -111,6 +165,16 @@ class ITTPNewGameViewModel: ObservableObject {
                 return "level4Item"
             case "Fire":
                 return "level5Item"
+            case "Cave":
+                return levels[index].itemName
+            case "Forest":
+                return levels[index].itemName
+            case "Hill":
+                return levels[index].itemName
+            case "Lake":
+                return levels[index].itemName
+            case "Temple":
+                return levels[index].itemName
             default:
                 return ""
             }
@@ -132,6 +196,16 @@ class ITTPNewGameViewModel: ObservableObject {
                 return "Here the shaman prepares the rituals. His feather is the sign of the ancestors’ wisdom."
             case "Fire":
                 return "The eternal fire connects the world of the living and the spirits. Find the Ritual Mask to open the Spirit’s Path."
+            case "Cave":
+                return "Here dwell the lost dreams of the ancestors. The Memory Stone preserves their wisdom."
+            case "Forest":
+                return "The shadows of the past hide among these trees. Find the Wolf Fang — the symbol of strength."
+            case "Hill":
+                return "On this hill, the wind carries the voices of the spirits. The Wind Whistle will help you hear them."
+            case "Lake":
+                return "The waters of this lake reflect the truths of the world. Find the Dreamcatcher to hold them."
+            case "Temple":
+                return "Here the ancestors await you. The Great Feather will complete the trial."
             default:
                 return ""
             }
@@ -153,6 +227,16 @@ class ITTPNewGameViewModel: ObservableObject {
                 return "The Shaman's Feather is in your hands. Only the Sacred Fire remains."
             case "Fire":
                 return "The Ritual Mask is found. The path to the Spirit Realm is now open."
+            case "Cave":
+                return "The Memory Stone has awakened ancient power. Your path leads to the Forest of Shadows."
+            case "Forest":
+                return "The Wolf Fang is yours. Go to the Windy Hill."
+            case "Hill":
+                return "The Wind Whistle sings in your hands. Your path leads to the Lake of Reflections."
+            case "Lake":
+                return "The Dreamcatcher is filled with ancient visions. Your journey will end at the Temple of Ancestors."
+            case "Temple":
+                return "You have obtained the Great Feather. The trial is complete."
             default:
                 return ""
             }

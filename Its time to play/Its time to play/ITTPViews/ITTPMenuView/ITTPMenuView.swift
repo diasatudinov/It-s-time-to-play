@@ -12,8 +12,8 @@ struct ITTPMenuView: View {
     @State private var showSettings = false
     
     
-    @StateObject var achievementVM = SRAchievementsViewModel()
-    @StateObject var settingsVM = SettingsViewModelSR()
+    @StateObject var achievementVM = ITTPAchievementsViewModel()
+    @StateObject var settingsVM = ITTPSettingsViewModel()
     @StateObject var gameVM = ITTPNewGameViewModel()
     
     var body: some View {
@@ -28,7 +28,7 @@ struct ITTPMenuView: View {
                             Image(.achievementsIconITTP)
                                 .resizable()
                                 .scaledToFit()
-                                .frame(height: SRDeviceInfo.shared.deviceType == .pad ? 140:72)
+                                .frame(height: ITTPDeviceInfo.shared.deviceType == .pad ? 140:72)
                             
                         }
                     }
@@ -41,7 +41,7 @@ struct ITTPMenuView: View {
                         Image(.settingsIconITTP)
                             .resizable()
                             .scaledToFit()
-                            .frame(height: SRDeviceInfo.shared.deviceType == .pad ? 140:72)
+                            .frame(height: ITTPDeviceInfo.shared.deviceType == .pad ? 140:72)
                     }
                 }
                 
@@ -60,11 +60,11 @@ struct ITTPMenuView: View {
                                 
                                 VStack {
                                     Text("Continue")
-                                        .font(.custom(Fonts.regular.rawValue, size: SRDeviceInfo.shared.deviceType == .pad ? 50:36))
+                                        .font(.custom(Fonts.regular.rawValue, size: ITTPDeviceInfo.shared.deviceType == .pad ? 50:36))
                                         .foregroundStyle(.white)
                                     
                                     Text(gameVM.isAct1 ? "Act I":"Act II")
-                                        .font(.custom(Fonts.regular.rawValue, size: SRDeviceInfo.shared.deviceType == .pad ? 50:36))
+                                        .font(.custom(Fonts.regular.rawValue, size: ITTPDeviceInfo.shared.deviceType == .pad ? 50:36))
                                         .foregroundStyle(.white)
                                 }
                             }
@@ -80,7 +80,7 @@ struct ITTPMenuView: View {
                                 Image(.newGameIconOffITTP)
                                     .resizable()
                                     .scaledToFit()
-                                    .frame(height: SRDeviceInfo.shared.deviceType == .pad ? 210:150)
+                                    .frame(height: ITTPDeviceInfo.shared.deviceType == .pad ? 210:150)
                                 
                             }
                         }
@@ -95,7 +95,7 @@ struct ITTPMenuView: View {
                                 Image(.newGameIconITTP)
                                     .resizable()
                                     .scaledToFit()
-                                    .frame(height: SRDeviceInfo.shared.deviceType == .pad ? 210:150)
+                                    .frame(height: ITTPDeviceInfo.shared.deviceType == .pad ? 210:150)
                                 
                                 
                                 
@@ -178,9 +178,56 @@ struct ITTPMenuView: View {
                 bgName: "FireBg",
                 isActive: false, isPassed: false
             ),
+            ITTPLevel(
+                name: "Cave",
+                longName: "Cave of Dreams",
+                act: .act2,
+                itemName: "CaveItem",
+                bgName: "CaveBg",
+                isActive: true,
+                isPassed: false
+            ),
+            ITTPLevel(
+                name: "Forest",
+                longName: "Forest of Shadows",
+                act: .act2,
+                itemName: "ForestItem",
+                bgName: "ForestBg",
+                isActive: false,
+                isPassed: false
+            ),
+            ITTPLevel(
+                name: "Hill",
+                longName: "Windy Hills",
+                act: .act2,
+                itemName: "HillItem",
+                bgName: "HillBg",
+                isActive: false,
+                isPassed: false
+            ),
+            ITTPLevel(
+                name: "Lake",
+                longName: "Lake of Reflections",
+                act: .act2,
+                itemName: "LakeItem",
+                bgName: "LakeBg",
+                isActive: false,
+                isPassed: false
+            ),
+            ITTPLevel(
+                name: "Temple",
+                longName: "Temple of Ancestors",
+                act: .act2,
+                itemName: "TempleItem",
+                bgName: "TempleBg",
+                isActive: false, isPassed: false
+            ),
+            
+            
         ]
         
         gameVM.isNewGameStarted = false
+        gameVM.isAct2Finished = false
         gameVM.isAct1Finished = false
         gameVM.isAct1 = true
     }
