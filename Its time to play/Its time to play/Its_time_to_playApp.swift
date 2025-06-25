@@ -8,9 +8,12 @@ import SwiftUI
 
 @main
 struct Its_time_to_playApp: App {
+    @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
+
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ITTPRoot()
+                .preferredColorScheme(.light)
         }
     }
 }
